@@ -7,17 +7,15 @@
 //
 
 import UIKit
-#if !RX_NO_MODULE
-    import RxSwift
-    import RxCocoa
-#endif
+import RxSwift
+import RxCocoa
 
 class PopUpDatePickerView: PopUpPickerViewBase {
 
     let pickerView: UIDatePicker = {
         let p = UIDatePicker()
-        p.datePickerMode = .Date
-        p.backgroundColor = UIColor.whiteColor()
+        p.datePickerMode = .date
+        p.backgroundColor = UIColor.white
         return p
     }()
 
@@ -41,12 +39,12 @@ class PopUpDatePickerView: PopUpPickerViewBase {
         initFunc()
     }
 
-    convenience init(min: NSDate?, max: NSDate?, initial: NSDate?) {
+    convenience init(min: Date?, max: Date?, initial: Date?) {
         self.init()
-        pickerView.minimumDate = min
-        pickerView.maximumDate = max
+        pickerView.minimumDate = min as Date?
+        pickerView.maximumDate = max as Date?
         if let initial = initial {
-            pickerView.date = initial
+            pickerView.date = initial as Date
         }
     }
 
@@ -56,18 +54,18 @@ class PopUpDatePickerView: PopUpPickerViewBase {
     }
 
     private func initFunc() {
-        let screenSize = UIScreen.mainScreen().bounds.size
-        pickerView.bounds = CGRectMake(0, 0, screenSize.width, 216)
-        pickerView.frame = CGRectMake(0, 44, screenSize.width, 216)
+        let screenSize = UIScreen.main.bounds.size
+        pickerView.bounds = CGRect(x: 0, y: 0, width: screenSize.width, height: 216)
+        pickerView.frame = CGRect(x: 0, y: 44, width: screenSize.width, height: 216)
 
         self.addSubview(pickerView)
     }
 
     // MARK: Actions
     override func showPicker() {
-        let screenSize = UIScreen.mainScreen().bounds.size
-        UIView.animateWithDuration(0.2) {
-            self.frame = CGRectMake(0, self.parentViewHeight() - 260.0, screenSize.width, 260.0)
+        let screenSize = UIScreen.main.bounds.size
+        UIView.animate(withDuration: 0.2) {
+            self.frame = CGRect(x: 0, y: self.parentViewHeight() - 260.0, width: screenSize.width, height: 260.0)
         }
     }
 
